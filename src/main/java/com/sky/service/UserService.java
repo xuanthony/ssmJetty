@@ -13,8 +13,4 @@ import java.util.List;
 public interface UserService {
 
     List<User> getUser();
-
-    void setUser(User users);
-
-    User getOneUser();
 }

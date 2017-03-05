@@ -21,19 +21,7 @@ public class UserSerivceImpl implements UserService{
     private UserMapper userMapper;
 
     public List<User> getUser() {
-        int i = 1;
-
         return userMapper.selectByExample(null);
-    }
-
-    @Override
-    public void setUser(User users) {
-
-    }
-
-    @Override
-    public User getOneUser() {
-        return null;
     }
 
 }

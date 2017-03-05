@@ -2,6 +2,8 @@ package com.sky.controller;
 
 import com.sky.pojo.User;
 import com.sky.service.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,10 +21,13 @@ import java.util.List;
 @RequestMapping("/user")
 public class UserController {
 
+    //添加一个日志器
+    private static final Logger logger = LoggerFactory.getLogger(UserController.class);
+
     @Autowired
     private UserService userService;
 
-    @RequestMapping("/findUser")
+    @RequestMapping("/getUser")
     public ModelAndView findUser()throws Exception{
         ModelAndView modelAndView = new ModelAndView();
 
