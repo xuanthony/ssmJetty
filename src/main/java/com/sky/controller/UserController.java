@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -18,7 +19,7 @@ import java.util.List;
  * @version: Version 1.0
  */
 @Controller
-@RequestMapping("/user")
+@RequestMapping("/users")
 public class UserController {
 
     //添加一个日志器
@@ -27,8 +28,10 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping("/getUser")
-    public ModelAndView findUser()throws Exception{
+    @RequestMapping(value = "/userList")
+    public ModelAndView userList(final HttpServletRequest request)throws Exception{
+        String page = request.getParameter("page");
+        String limit = request.getParameter("limit");
         ModelAndView modelAndView = new ModelAndView();
 
         //调用service方法得到用户列表

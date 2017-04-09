@@ -1,7 +1,8 @@
 package com.test.reflect;
 
-import com.sky.pojo.User;
-import com.sky.service.UserService;
+import com.google.common.collect.Maps;
+
+import java.util.Map;
 
 /**
  * @（#）:TestProxy
@@ -11,14 +12,16 @@ import com.sky.service.UserService;
  */
 public class TestProxy {
     public static void main(String[] args) {
-        UserService userService = (UserService) MapperProxy.newInstance(new Class[] {UserService.class});
-
-        User user = new User();
-        user.setFirstName("xu");
-        userService.setUser(user);
-
-        User user1 = userService.getOneUser();
-        System.out.println(user1.getFirstName());
+        System.out.println(Fruit.APPLE.toString());
+        Map<String, Object> map = Maps.newHashMap();
+//        UserService userService = (UserService) MapperProxy.newInstance(new Class[] {UserService.class});
+//
+//        User user = new User();
+//        user.setFirstName("xu");
+//        userService.setUser(user);
+//
+//        User user1 = userService.getOneUser();
+//        System.out.println(user1.getFirstName());
 
 //        MapperProxy<UserService> mapperProxy = null;
 //        UserService userService1 = MapperProxyFactory.class.newInstance(new MapperProxy<UserService>());
