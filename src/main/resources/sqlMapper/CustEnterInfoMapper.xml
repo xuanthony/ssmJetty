@@ -1,0 +1,608 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sky.dao.CustEnterInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.sky.pojo.CustEnterInfo" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="gmt_create" property="gmtCreate" jdbcType="TIMESTAMP" />
+    <result column="gmt_modified" property="gmtModified" jdbcType="TIMESTAMP" />
+    <result column="creator" property="creator" jdbcType="VARCHAR" />
+    <result column="modifier" property="modifier" jdbcType="VARCHAR" />
+    <result column="cust_no" property="custNo" jdbcType="VARCHAR" />
+    <result column="cert_type" property="certType" jdbcType="CHAR" />
+    <result column="cert_no" property="certNo" jdbcType="VARCHAR" />
+    <result column="loan_card_no" property="loanCardNo" jdbcType="VARCHAR" />
+    <result column="enter_scale" property="enterScale" jdbcType="CHAR" />
+    <result column="enter_property" property="enterProperty" jdbcType="CHAR" />
+    <result column="register_code" property="registerCode" jdbcType="VARCHAR" />
+    <result column="valid_date" property="validDate" jdbcType="TIMESTAMP" />
+    <result column="register_date" property="registerDate" jdbcType="TIMESTAMP" />
+    <result column="register_org" property="registerOrg" jdbcType="VARCHAR" />
+    <result column="country_tax_no" property="countryTaxNo" jdbcType="VARCHAR" />
+    <result column="local_tax_no" property="localTaxNo" jdbcType="VARCHAR" />
+    <result column="enter_industry" property="enterIndustry" jdbcType="VARCHAR" />
+    <result column="enter_industry_detail" property="enterIndustryDetail" jdbcType="VARCHAR" />
+    <result column="year_total_revenue" property="yearTotalRevenue" jdbcType="DECIMAL" />
+    <result column="register_curency" property="registerCurency" jdbcType="CHAR" />
+    <result column="register_capital" property="registerCapital" jdbcType="DECIMAL" />
+    <result column="start_year" property="startYear" jdbcType="TIMESTAMP" />
+    <result column="register_address" property="registerAddress" jdbcType="VARCHAR" />
+    <result column="register_address_detail" property="registerAddressDetail" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="address_detail" property="addressDetail" jdbcType="VARCHAR" />
+    <result column="address_zip_code" property="addressZipCode" jdbcType="VARCHAR" />
+    <result column="version" property="version" jdbcType="INTEGER" />
+    <result column="is_delete" property="isDelete" jdbcType="TINYINT" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, gmt_create, gmt_modified, creator, modifier, cust_no, cert_type, cert_no, loan_card_no, 
+    enter_scale, enter_property, register_code, valid_date, register_date, register_org, 
+    country_tax_no, local_tax_no, enter_industry, enter_industry_detail, year_total_revenue, 
+    register_curency, register_capital, start_year, register_address, register_address_detail, 
+    address, address_detail, address_zip_code, version, is_delete
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.sky.pojo.CustEnterInfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from cust_enter_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from cust_enter_info
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from cust_enter_info
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sky.pojo.CustEnterInfoExample" >
+    delete from cust_enter_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sky.pojo.CustEnterInfo" >
+    insert into cust_enter_info (id, gmt_create, gmt_modified, 
+      creator, modifier, cust_no, 
+      cert_type, cert_no, loan_card_no, 
+      enter_scale, enter_property, register_code, 
+      valid_date, register_date, register_org, 
+      country_tax_no, local_tax_no, enter_industry, 
+      enter_industry_detail, year_total_revenue, 
+      register_curency, register_capital, start_year, 
+      register_address, register_address_detail, 
+      address, address_detail, address_zip_code, 
+      version, is_delete)
+    values (#{id,jdbcType=BIGINT}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, 
+      #{creator,jdbcType=VARCHAR}, #{modifier,jdbcType=VARCHAR}, #{custNo,jdbcType=VARCHAR}, 
+      #{certType,jdbcType=CHAR}, #{certNo,jdbcType=VARCHAR}, #{loanCardNo,jdbcType=VARCHAR}, 
+      #{enterScale,jdbcType=CHAR}, #{enterProperty,jdbcType=CHAR}, #{registerCode,jdbcType=VARCHAR}, 
+      #{validDate,jdbcType=TIMESTAMP}, #{registerDate,jdbcType=TIMESTAMP}, #{registerOrg,jdbcType=VARCHAR}, 
+      #{countryTaxNo,jdbcType=VARCHAR}, #{localTaxNo,jdbcType=VARCHAR}, #{enterIndustry,jdbcType=VARCHAR}, 
+      #{enterIndustryDetail,jdbcType=VARCHAR}, #{yearTotalRevenue,jdbcType=DECIMAL}, 
+      #{registerCurency,jdbcType=CHAR}, #{registerCapital,jdbcType=DECIMAL}, #{startYear,jdbcType=TIMESTAMP}, 
+      #{registerAddress,jdbcType=VARCHAR}, #{registerAddressDetail,jdbcType=VARCHAR}, 
+      #{address,jdbcType=VARCHAR}, #{addressDetail,jdbcType=VARCHAR}, #{addressZipCode,jdbcType=VARCHAR}, 
+      #{version,jdbcType=INTEGER}, #{isDelete,jdbcType=TINYINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sky.pojo.CustEnterInfo" >
+    insert into cust_enter_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="gmtCreate != null" >
+        gmt_create,
+      </if>
+      <if test="gmtModified != null" >
+        gmt_modified,
+      </if>
+      <if test="creator != null" >
+        creator,
+      </if>
+      <if test="modifier != null" >
+        modifier,
+      </if>
+      <if test="custNo != null" >
+        cust_no,
+      </if>
+      <if test="certType != null" >
+        cert_type,
+      </if>
+      <if test="certNo != null" >
+        cert_no,
+      </if>
+      <if test="loanCardNo != null" >
+        loan_card_no,
+      </if>
+      <if test="enterScale != null" >
+        enter_scale,
+      </if>
+      <if test="enterProperty != null" >
+        enter_property,
+      </if>
+      <if test="registerCode != null" >
+        register_code,
+      </if>
+      <if test="validDate != null" >
+        valid_date,
+      </if>
+      <if test="registerDate != null" >
+        register_date,
+      </if>
+      <if test="registerOrg != null" >
+        register_org,
+      </if>
+      <if test="countryTaxNo != null" >
+        country_tax_no,
+      </if>
+      <if test="localTaxNo != null" >
+        local_tax_no,
+      </if>
+      <if test="enterIndustry != null" >
+        enter_industry,
+      </if>
+      <if test="enterIndustryDetail != null" >
+        enter_industry_detail,
+      </if>
+      <if test="yearTotalRevenue != null" >
+        year_total_revenue,
+      </if>
+      <if test="registerCurency != null" >
+        register_curency,
+      </if>
+      <if test="registerCapital != null" >
+        register_capital,
+      </if>
+      <if test="startYear != null" >
+        start_year,
+      </if>
+      <if test="registerAddress != null" >
+        register_address,
+      </if>
+      <if test="registerAddressDetail != null" >
+        register_address_detail,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+      <if test="addressDetail != null" >
+        address_detail,
+      </if>
+      <if test="addressZipCode != null" >
+        address_zip_code,
+      </if>
+      <if test="version != null" >
+        version,
+      </if>
+      <if test="isDelete != null" >
+        is_delete,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="gmtCreate != null" >
+        #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null" >
+        #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creator != null" >
+        #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="modifier != null" >
+        #{modifier,jdbcType=VARCHAR},
+      </if>
+      <if test="custNo != null" >
+        #{custNo,jdbcType=VARCHAR},
+      </if>
+      <if test="certType != null" >
+        #{certType,jdbcType=CHAR},
+      </if>
+      <if test="certNo != null" >
+        #{certNo,jdbcType=VARCHAR},
+      </if>
+      <if test="loanCardNo != null" >
+        #{loanCardNo,jdbcType=VARCHAR},
+      </if>
+      <if test="enterScale != null" >
+        #{enterScale,jdbcType=CHAR},
+      </if>
+      <if test="enterProperty != null" >
+        #{enterProperty,jdbcType=CHAR},
+      </if>
+      <if test="registerCode != null" >
+        #{registerCode,jdbcType=VARCHAR},
+      </if>
+      <if test="validDate != null" >
+        #{validDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="registerDate != null" >
+        #{registerDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="registerOrg != null" >
+        #{registerOrg,jdbcType=VARCHAR},
+      </if>
+      <if test="countryTaxNo != null" >
+        #{countryTaxNo,jdbcType=VARCHAR},
+      </if>
+      <if test="localTaxNo != null" >
+        #{localTaxNo,jdbcType=VARCHAR},
+      </if>
+      <if test="enterIndustry != null" >
+        #{enterIndustry,jdbcType=VARCHAR},
+      </if>
+      <if test="enterIndustryDetail != null" >
+        #{enterIndustryDetail,jdbcType=VARCHAR},
+      </if>
+      <if test="yearTotalRevenue != null" >
+        #{yearTotalRevenue,jdbcType=DECIMAL},
+      </if>
+      <if test="registerCurency != null" >
+        #{registerCurency,jdbcType=CHAR},
+      </if>
+      <if test="registerCapital != null" >
+        #{registerCapital,jdbcType=DECIMAL},
+      </if>
+      <if test="startYear != null" >
+        #{startYear,jdbcType=TIMESTAMP},
+      </if>
+      <if test="registerAddress != null" >
+        #{registerAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="registerAddressDetail != null" >
+        #{registerAddressDetail,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="addressDetail != null" >
+        #{addressDetail,jdbcType=VARCHAR},
+      </if>
+      <if test="addressZipCode != null" >
+        #{addressZipCode,jdbcType=VARCHAR},
+      </if>
+      <if test="version != null" >
+        #{version,jdbcType=INTEGER},
+      </if>
+      <if test="isDelete != null" >
+        #{isDelete,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sky.pojo.CustEnterInfoExample" resultType="java.lang.Integer" >
+    select count(*) from cust_enter_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update cust_enter_info
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.gmtCreate != null" >
+        gmt_create = #{record.gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.gmtModified != null" >
+        gmt_modified = #{record.gmtModified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.creator != null" >
+        creator = #{record.creator,jdbcType=VARCHAR},
+      </if>
+      <if test="record.modifier != null" >
+        modifier = #{record.modifier,jdbcType=VARCHAR},
+      </if>
+      <if test="record.custNo != null" >
+        cust_no = #{record.custNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.certType != null" >
+        cert_type = #{record.certType,jdbcType=CHAR},
+      </if>
+      <if test="record.certNo != null" >
+        cert_no = #{record.certNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.loanCardNo != null" >
+        loan_card_no = #{record.loanCardNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.enterScale != null" >
+        enter_scale = #{record.enterScale,jdbcType=CHAR},
+      </if>
+      <if test="record.enterProperty != null" >
+        enter_property = #{record.enterProperty,jdbcType=CHAR},
+      </if>
+      <if test="record.registerCode != null" >
+        register_code = #{record.registerCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.validDate != null" >
+        valid_date = #{record.validDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.registerDate != null" >
+        register_date = #{record.registerDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.registerOrg != null" >
+        register_org = #{record.registerOrg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.countryTaxNo != null" >
+        country_tax_no = #{record.countryTaxNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.localTaxNo != null" >
+        local_tax_no = #{record.localTaxNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.enterIndustry != null" >
+        enter_industry = #{record.enterIndustry,jdbcType=VARCHAR},
+      </if>
+      <if test="record.enterIndustryDetail != null" >
+        enter_industry_detail = #{record.enterIndustryDetail,jdbcType=VARCHAR},
+      </if>
+      <if test="record.yearTotalRevenue != null" >
+        year_total_revenue = #{record.yearTotalRevenue,jdbcType=DECIMAL},
+      </if>
+      <if test="record.registerCurency != null" >
+        register_curency = #{record.registerCurency,jdbcType=CHAR},
+      </if>
+      <if test="record.registerCapital != null" >
+        register_capital = #{record.registerCapital,jdbcType=DECIMAL},
+      </if>
+      <if test="record.startYear != null" >
+        start_year = #{record.startYear,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.registerAddress != null" >
+        register_address = #{record.registerAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.registerAddressDetail != null" >
+        register_address_detail = #{record.registerAddressDetail,jdbcType=VARCHAR},
+      </if>
+      <if test="record.address != null" >
+        address = #{record.address,jdbcType=VARCHAR},
+      </if>
+      <if test="record.addressDetail != null" >
+        address_detail = #{record.addressDetail,jdbcType=VARCHAR},
+      </if>
+      <if test="record.addressZipCode != null" >
+        address_zip_code = #{record.addressZipCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.version != null" >
+        version = #{record.version,jdbcType=INTEGER},
+      </if>
+      <if test="record.isDelete != null" >
+        is_delete = #{record.isDelete,jdbcType=TINYINT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update cust_enter_info
+    set id = #{record.id,jdbcType=BIGINT},
+      gmt_create = #{record.gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{record.gmtModified,jdbcType=TIMESTAMP},
+      creator = #{record.creator,jdbcType=VARCHAR},
+      modifier = #{record.modifier,jdbcType=VARCHAR},
+      cust_no = #{record.custNo,jdbcType=VARCHAR},
+      cert_type = #{record.certType,jdbcType=CHAR},
+      cert_no = #{record.certNo,jdbcType=VARCHAR},
+      loan_card_no = #{record.loanCardNo,jdbcType=VARCHAR},
+      enter_scale = #{record.enterScale,jdbcType=CHAR},
+      enter_property = #{record.enterProperty,jdbcType=CHAR},
+      register_code = #{record.registerCode,jdbcType=VARCHAR},
+      valid_date = #{record.validDate,jdbcType=TIMESTAMP},
+      register_date = #{record.registerDate,jdbcType=TIMESTAMP},
+      register_org = #{record.registerOrg,jdbcType=VARCHAR},
+      country_tax_no = #{record.countryTaxNo,jdbcType=VARCHAR},
+      local_tax_no = #{record.localTaxNo,jdbcType=VARCHAR},
+      enter_industry = #{record.enterIndustry,jdbcType=VARCHAR},
+      enter_industry_detail = #{record.enterIndustryDetail,jdbcType=VARCHAR},
+      year_total_revenue = #{record.yearTotalRevenue,jdbcType=DECIMAL},
+      register_curency = #{record.registerCurency,jdbcType=CHAR},
+      register_capital = #{record.registerCapital,jdbcType=DECIMAL},
+      start_year = #{record.startYear,jdbcType=TIMESTAMP},
+      register_address = #{record.registerAddress,jdbcType=VARCHAR},
+      register_address_detail = #{record.registerAddressDetail,jdbcType=VARCHAR},
+      address = #{record.address,jdbcType=VARCHAR},
+      address_detail = #{record.addressDetail,jdbcType=VARCHAR},
+      address_zip_code = #{record.addressZipCode,jdbcType=VARCHAR},
+      version = #{record.version,jdbcType=INTEGER},
+      is_delete = #{record.isDelete,jdbcType=TINYINT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sky.pojo.CustEnterInfo" >
+    update cust_enter_info
+    <set >
+      <if test="gmtCreate != null" >
+        gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null" >
+        gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creator != null" >
+        creator = #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="modifier != null" >
+        modifier = #{modifier,jdbcType=VARCHAR},
+      </if>
+      <if test="custNo != null" >
+        cust_no = #{custNo,jdbcType=VARCHAR},
+      </if>
+      <if test="certType != null" >
+        cert_type = #{certType,jdbcType=CHAR},
+      </if>
+      <if test="certNo != null" >
+        cert_no = #{certNo,jdbcType=VARCHAR},
+      </if>
+      <if test="loanCardNo != null" >
+        loan_card_no = #{loanCardNo,jdbcType=VARCHAR},
+      </if>
+      <if test="enterScale != null" >
+        enter_scale = #{enterScale,jdbcType=CHAR},
+      </if>
+      <if test="enterProperty != null" >
+        enter_property = #{enterProperty,jdbcType=CHAR},
+      </if>
+      <if test="registerCode != null" >
+        register_code = #{registerCode,jdbcType=VARCHAR},
+      </if>
+      <if test="validDate != null" >
+        valid_date = #{validDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="registerDate != null" >
+        register_date = #{registerDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="registerOrg != null" >
+        register_org = #{registerOrg,jdbcType=VARCHAR},
+      </if>
+      <if test="countryTaxNo != null" >
+        country_tax_no = #{countryTaxNo,jdbcType=VARCHAR},
+      </if>
+      <if test="localTaxNo != null" >
+        local_tax_no = #{localTaxNo,jdbcType=VARCHAR},
+      </if>
+      <if test="enterIndustry != null" >
+        enter_industry = #{enterIndustry,jdbcType=VARCHAR},
+      </if>
+      <if test="enterIndustryDetail != null" >
+        enter_industry_detail = #{enterIndustryDetail,jdbcType=VARCHAR},
+      </if>
+      <if test="yearTotalRevenue != null" >
+        year_total_revenue = #{yearTotalRevenue,jdbcType=DECIMAL},
+      </if>
+      <if test="registerCurency != null" >
+        register_curency = #{registerCurency,jdbcType=CHAR},
+      </if>
+      <if test="registerCapital != null" >
+        register_capital = #{registerCapital,jdbcType=DECIMAL},
+      </if>
+      <if test="startYear != null" >
+        start_year = #{startYear,jdbcType=TIMESTAMP},
+      </if>
+      <if test="registerAddress != null" >
+        register_address = #{registerAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="registerAddressDetail != null" >
+        register_address_detail = #{registerAddressDetail,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="addressDetail != null" >
+        address_detail = #{addressDetail,jdbcType=VARCHAR},
+      </if>
+      <if test="addressZipCode != null" >
+        address_zip_code = #{addressZipCode,jdbcType=VARCHAR},
+      </if>
+      <if test="version != null" >
+        version = #{version,jdbcType=INTEGER},
+      </if>
+      <if test="isDelete != null" >
+        is_delete = #{isDelete,jdbcType=TINYINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sky.pojo.CustEnterInfo" >
+    update cust_enter_info
+    set gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      creator = #{creator,jdbcType=VARCHAR},
+      modifier = #{modifier,jdbcType=VARCHAR},
+      cust_no = #{custNo,jdbcType=VARCHAR},
+      cert_type = #{certType,jdbcType=CHAR},
+      cert_no = #{certNo,jdbcType=VARCHAR},
+      loan_card_no = #{loanCardNo,jdbcType=VARCHAR},
+      enter_scale = #{enterScale,jdbcType=CHAR},
+      enter_property = #{enterProperty,jdbcType=CHAR},
+      register_code = #{registerCode,jdbcType=VARCHAR},
+      valid_date = #{validDate,jdbcType=TIMESTAMP},
+      register_date = #{registerDate,jdbcType=TIMESTAMP},
+      register_org = #{registerOrg,jdbcType=VARCHAR},
+      country_tax_no = #{countryTaxNo,jdbcType=VARCHAR},
+      local_tax_no = #{localTaxNo,jdbcType=VARCHAR},
+      enter_industry = #{enterIndustry,jdbcType=VARCHAR},
+      enter_industry_detail = #{enterIndustryDetail,jdbcType=VARCHAR},
+      year_total_revenue = #{yearTotalRevenue,jdbcType=DECIMAL},
+      register_curency = #{registerCurency,jdbcType=CHAR},
+      register_capital = #{registerCapital,jdbcType=DECIMAL},
+      start_year = #{startYear,jdbcType=TIMESTAMP},
+      register_address = #{registerAddress,jdbcType=VARCHAR},
+      register_address_detail = #{registerAddressDetail,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      address_detail = #{addressDetail,jdbcType=VARCHAR},
+      address_zip_code = #{addressZipCode,jdbcType=VARCHAR},
+      version = #{version,jdbcType=INTEGER},
+      is_delete = #{isDelete,jdbcType=TINYINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

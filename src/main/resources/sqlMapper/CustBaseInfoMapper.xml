@@ -1,0 +1,495 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sky.dao.CustBaseInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.sky.pojo.CustBaseInfo" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="gmt_create" property="gmtCreate" jdbcType="TIMESTAMP" />
+    <result column="gmt_modified" property="gmtModified" jdbcType="TIMESTAMP" />
+    <result column="creator" property="creator" jdbcType="VARCHAR" />
+    <result column="modifier" property="modifier" jdbcType="VARCHAR" />
+    <result column="org_id" property="orgId" jdbcType="BIGINT" />
+    <result column="depart_id" property="departId" jdbcType="BIGINT" />
+    <result column="category" property="category" jdbcType="CHAR" />
+    <result column="cust_no" property="custNo" jdbcType="VARCHAR" />
+    <result column="cert_name" property="certName" jdbcType="VARCHAR" />
+    <result column="cert_type" property="certType" jdbcType="VARCHAR" />
+    <result column="cert_no" property="certNo" jdbcType="VARCHAR" />
+    <result column="alipay_account" property="alipayAccount" jdbcType="VARCHAR" />
+    <result column="detail" property="detail" jdbcType="VARCHAR" />
+    <result column="cust_source" property="custSource" jdbcType="CHAR" />
+    <result column="cust_manager_id" property="custManagerId" jdbcType="BIGINT" />
+    <result column="contact" property="contact" jdbcType="VARCHAR" />
+    <result column="cert_confirm" property="certConfirm" jdbcType="CHAR" />
+    <result column="regist_channel" property="registChannel" jdbcType="CHAR" />
+    <result column="version" property="version" jdbcType="INTEGER" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="is_delete" property="isDelete" jdbcType="TINYINT" />
+    <result column="is_credited" property="isCredited" jdbcType="TINYINT" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, gmt_create, gmt_modified, creator, modifier, org_id, depart_id, category, cust_no, 
+    cert_name, cert_type, cert_no, alipay_account, detail, cust_source, cust_manager_id, 
+    contact, cert_confirm, regist_channel, version, remark, is_delete, is_credited
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.sky.pojo.CustBaseInfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from cust_base_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from cust_base_info
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from cust_base_info
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sky.pojo.CustBaseInfoExample" >
+    delete from cust_base_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sky.pojo.CustBaseInfo" >
+    insert into cust_base_info (id, gmt_create, gmt_modified, 
+      creator, modifier, org_id, 
+      depart_id, category, cust_no, 
+      cert_name, cert_type, cert_no, 
+      alipay_account, detail, cust_source, 
+      cust_manager_id, contact, cert_confirm, 
+      regist_channel, version, remark, 
+      is_delete, is_credited)
+    values (#{id,jdbcType=BIGINT}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, 
+      #{creator,jdbcType=VARCHAR}, #{modifier,jdbcType=VARCHAR}, #{orgId,jdbcType=BIGINT}, 
+      #{departId,jdbcType=BIGINT}, #{category,jdbcType=CHAR}, #{custNo,jdbcType=VARCHAR}, 
+      #{certName,jdbcType=VARCHAR}, #{certType,jdbcType=VARCHAR}, #{certNo,jdbcType=VARCHAR}, 
+      #{alipayAccount,jdbcType=VARCHAR}, #{detail,jdbcType=VARCHAR}, #{custSource,jdbcType=CHAR}, 
+      #{custManagerId,jdbcType=BIGINT}, #{contact,jdbcType=VARCHAR}, #{certConfirm,jdbcType=CHAR}, 
+      #{registChannel,jdbcType=CHAR}, #{version,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR}, 
+      #{isDelete,jdbcType=TINYINT}, #{isCredited,jdbcType=TINYINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sky.pojo.CustBaseInfo" >
+    insert into cust_base_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="gmtCreate != null" >
+        gmt_create,
+      </if>
+      <if test="gmtModified != null" >
+        gmt_modified,
+      </if>
+      <if test="creator != null" >
+        creator,
+      </if>
+      <if test="modifier != null" >
+        modifier,
+      </if>
+      <if test="orgId != null" >
+        org_id,
+      </if>
+      <if test="departId != null" >
+        depart_id,
+      </if>
+      <if test="category != null" >
+        category,
+      </if>
+      <if test="custNo != null" >
+        cust_no,
+      </if>
+      <if test="certName != null" >
+        cert_name,
+      </if>
+      <if test="certType != null" >
+        cert_type,
+      </if>
+      <if test="certNo != null" >
+        cert_no,
+      </if>
+      <if test="alipayAccount != null" >
+        alipay_account,
+      </if>
+      <if test="detail != null" >
+        detail,
+      </if>
+      <if test="custSource != null" >
+        cust_source,
+      </if>
+      <if test="custManagerId != null" >
+        cust_manager_id,
+      </if>
+      <if test="contact != null" >
+        contact,
+      </if>
+      <if test="certConfirm != null" >
+        cert_confirm,
+      </if>
+      <if test="registChannel != null" >
+        regist_channel,
+      </if>
+      <if test="version != null" >
+        version,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="isDelete != null" >
+        is_delete,
+      </if>
+      <if test="isCredited != null" >
+        is_credited,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="gmtCreate != null" >
+        #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null" >
+        #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creator != null" >
+        #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="modifier != null" >
+        #{modifier,jdbcType=VARCHAR},
+      </if>
+      <if test="orgId != null" >
+        #{orgId,jdbcType=BIGINT},
+      </if>
+      <if test="departId != null" >
+        #{departId,jdbcType=BIGINT},
+      </if>
+      <if test="category != null" >
+        #{category,jdbcType=CHAR},
+      </if>
+      <if test="custNo != null" >
+        #{custNo,jdbcType=VARCHAR},
+      </if>
+      <if test="certName != null" >
+        #{certName,jdbcType=VARCHAR},
+      </if>
+      <if test="certType != null" >
+        #{certType,jdbcType=VARCHAR},
+      </if>
+      <if test="certNo != null" >
+        #{certNo,jdbcType=VARCHAR},
+      </if>
+      <if test="alipayAccount != null" >
+        #{alipayAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="detail != null" >
+        #{detail,jdbcType=VARCHAR},
+      </if>
+      <if test="custSource != null" >
+        #{custSource,jdbcType=CHAR},
+      </if>
+      <if test="custManagerId != null" >
+        #{custManagerId,jdbcType=BIGINT},
+      </if>
+      <if test="contact != null" >
+        #{contact,jdbcType=VARCHAR},
+      </if>
+      <if test="certConfirm != null" >
+        #{certConfirm,jdbcType=CHAR},
+      </if>
+      <if test="registChannel != null" >
+        #{registChannel,jdbcType=CHAR},
+      </if>
+      <if test="version != null" >
+        #{version,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="isDelete != null" >
+        #{isDelete,jdbcType=TINYINT},
+      </if>
+      <if test="isCredited != null" >
+        #{isCredited,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sky.pojo.CustBaseInfoExample" resultType="java.lang.Integer" >
+    select count(*) from cust_base_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update cust_base_info
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.gmtCreate != null" >
+        gmt_create = #{record.gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.gmtModified != null" >
+        gmt_modified = #{record.gmtModified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.creator != null" >
+        creator = #{record.creator,jdbcType=VARCHAR},
+      </if>
+      <if test="record.modifier != null" >
+        modifier = #{record.modifier,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orgId != null" >
+        org_id = #{record.orgId,jdbcType=BIGINT},
+      </if>
+      <if test="record.departId != null" >
+        depart_id = #{record.departId,jdbcType=BIGINT},
+      </if>
+      <if test="record.category != null" >
+        category = #{record.category,jdbcType=CHAR},
+      </if>
+      <if test="record.custNo != null" >
+        cust_no = #{record.custNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.certName != null" >
+        cert_name = #{record.certName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.certType != null" >
+        cert_type = #{record.certType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.certNo != null" >
+        cert_no = #{record.certNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.alipayAccount != null" >
+        alipay_account = #{record.alipayAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="record.detail != null" >
+        detail = #{record.detail,jdbcType=VARCHAR},
+      </if>
+      <if test="record.custSource != null" >
+        cust_source = #{record.custSource,jdbcType=CHAR},
+      </if>
+      <if test="record.custManagerId != null" >
+        cust_manager_id = #{record.custManagerId,jdbcType=BIGINT},
+      </if>
+      <if test="record.contact != null" >
+        contact = #{record.contact,jdbcType=VARCHAR},
+      </if>
+      <if test="record.certConfirm != null" >
+        cert_confirm = #{record.certConfirm,jdbcType=CHAR},
+      </if>
+      <if test="record.registChannel != null" >
+        regist_channel = #{record.registChannel,jdbcType=CHAR},
+      </if>
+      <if test="record.version != null" >
+        version = #{record.version,jdbcType=INTEGER},
+      </if>
+      <if test="record.remark != null" >
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isDelete != null" >
+        is_delete = #{record.isDelete,jdbcType=TINYINT},
+      </if>
+      <if test="record.isCredited != null" >
+        is_credited = #{record.isCredited,jdbcType=TINYINT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update cust_base_info
+    set id = #{record.id,jdbcType=BIGINT},
+      gmt_create = #{record.gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{record.gmtModified,jdbcType=TIMESTAMP},
+      creator = #{record.creator,jdbcType=VARCHAR},
+      modifier = #{record.modifier,jdbcType=VARCHAR},
+      org_id = #{record.orgId,jdbcType=BIGINT},
+      depart_id = #{record.departId,jdbcType=BIGINT},
+      category = #{record.category,jdbcType=CHAR},
+      cust_no = #{record.custNo,jdbcType=VARCHAR},
+      cert_name = #{record.certName,jdbcType=VARCHAR},
+      cert_type = #{record.certType,jdbcType=VARCHAR},
+      cert_no = #{record.certNo,jdbcType=VARCHAR},
+      alipay_account = #{record.alipayAccount,jdbcType=VARCHAR},
+      detail = #{record.detail,jdbcType=VARCHAR},
+      cust_source = #{record.custSource,jdbcType=CHAR},
+      cust_manager_id = #{record.custManagerId,jdbcType=BIGINT},
+      contact = #{record.contact,jdbcType=VARCHAR},
+      cert_confirm = #{record.certConfirm,jdbcType=CHAR},
+      regist_channel = #{record.registChannel,jdbcType=CHAR},
+      version = #{record.version,jdbcType=INTEGER},
+      remark = #{record.remark,jdbcType=VARCHAR},
+      is_delete = #{record.isDelete,jdbcType=TINYINT},
+      is_credited = #{record.isCredited,jdbcType=TINYINT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sky.pojo.CustBaseInfo" >
+    update cust_base_info
+    <set >
+      <if test="gmtCreate != null" >
+        gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null" >
+        gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creator != null" >
+        creator = #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="modifier != null" >
+        modifier = #{modifier,jdbcType=VARCHAR},
+      </if>
+      <if test="orgId != null" >
+        org_id = #{orgId,jdbcType=BIGINT},
+      </if>
+      <if test="departId != null" >
+        depart_id = #{departId,jdbcType=BIGINT},
+      </if>
+      <if test="category != null" >
+        category = #{category,jdbcType=CHAR},
+      </if>
+      <if test="custNo != null" >
+        cust_no = #{custNo,jdbcType=VARCHAR},
+      </if>
+      <if test="certName != null" >
+        cert_name = #{certName,jdbcType=VARCHAR},
+      </if>
+      <if test="certType != null" >
+        cert_type = #{certType,jdbcType=VARCHAR},
+      </if>
+      <if test="certNo != null" >
+        cert_no = #{certNo,jdbcType=VARCHAR},
+      </if>
+      <if test="alipayAccount != null" >
+        alipay_account = #{alipayAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="detail != null" >
+        detail = #{detail,jdbcType=VARCHAR},
+      </if>
+      <if test="custSource != null" >
+        cust_source = #{custSource,jdbcType=CHAR},
+      </if>
+      <if test="custManagerId != null" >
+        cust_manager_id = #{custManagerId,jdbcType=BIGINT},
+      </if>
+      <if test="contact != null" >
+        contact = #{contact,jdbcType=VARCHAR},
+      </if>
+      <if test="certConfirm != null" >
+        cert_confirm = #{certConfirm,jdbcType=CHAR},
+      </if>
+      <if test="registChannel != null" >
+        regist_channel = #{registChannel,jdbcType=CHAR},
+      </if>
+      <if test="version != null" >
+        version = #{version,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="isDelete != null" >
+        is_delete = #{isDelete,jdbcType=TINYINT},
+      </if>
+      <if test="isCredited != null" >
+        is_credited = #{isCredited,jdbcType=TINYINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sky.pojo.CustBaseInfo" >
+    update cust_base_info
+    set gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      creator = #{creator,jdbcType=VARCHAR},
+      modifier = #{modifier,jdbcType=VARCHAR},
+      org_id = #{orgId,jdbcType=BIGINT},
+      depart_id = #{departId,jdbcType=BIGINT},
+      category = #{category,jdbcType=CHAR},
+      cust_no = #{custNo,jdbcType=VARCHAR},
+      cert_name = #{certName,jdbcType=VARCHAR},
+      cert_type = #{certType,jdbcType=VARCHAR},
+      cert_no = #{certNo,jdbcType=VARCHAR},
+      alipay_account = #{alipayAccount,jdbcType=VARCHAR},
+      detail = #{detail,jdbcType=VARCHAR},
+      cust_source = #{custSource,jdbcType=CHAR},
+      cust_manager_id = #{custManagerId,jdbcType=BIGINT},
+      contact = #{contact,jdbcType=VARCHAR},
+      cert_confirm = #{certConfirm,jdbcType=CHAR},
+      regist_channel = #{registChannel,jdbcType=CHAR},
+      version = #{version,jdbcType=INTEGER},
+      remark = #{remark,jdbcType=VARCHAR},
+      is_delete = #{isDelete,jdbcType=TINYINT},
+      is_credited = #{isCredited,jdbcType=TINYINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

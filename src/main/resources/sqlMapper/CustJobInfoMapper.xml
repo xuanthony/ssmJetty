@@ -1,0 +1,418 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sky.dao.CustJobInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.sky.pojo.CustJobInfo" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="gmt_create" property="gmtCreate" jdbcType="TIMESTAMP" />
+    <result column="gmt_modified" property="gmtModified" jdbcType="TIMESTAMP" />
+    <result column="creator" property="creator" jdbcType="VARCHAR" />
+    <result column="modifier" property="modifier" jdbcType="VARCHAR" />
+    <result column="cust_no" property="custNo" jdbcType="VARCHAR" />
+    <result column="company_name" property="companyName" jdbcType="VARCHAR" />
+    <result column="company_zip_code" property="companyZipCode" jdbcType="VARCHAR" />
+    <result column="company_tel" property="companyTel" jdbcType="VARCHAR" />
+    <result column="work_addr" property="workAddr" jdbcType="VARCHAR" />
+    <result column="work_addr_detail" property="workAddrDetail" jdbcType="VARCHAR" />
+    <result column="industry" property="industry" jdbcType="CHAR" />
+    <result column="salary" property="salary" jdbcType="DECIMAL" />
+    <result column="occupation" property="occupation" jdbcType="CHAR" />
+    <result column="begin_year" property="beginYear" jdbcType="VARCHAR" />
+    <result column="self_duty" property="selfDuty" jdbcType="CHAR" />
+    <result column="version" property="version" jdbcType="INTEGER" />
+    <result column="is_delete" property="isDelete" jdbcType="TINYINT" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, gmt_create, gmt_modified, creator, modifier, cust_no, company_name, company_zip_code, 
+    company_tel, work_addr, work_addr_detail, industry, salary, occupation, begin_year, 
+    self_duty, version, is_delete
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.sky.pojo.CustJobInfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from cust_job_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from cust_job_info
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from cust_job_info
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sky.pojo.CustJobInfoExample" >
+    delete from cust_job_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sky.pojo.CustJobInfo" >
+    insert into cust_job_info (id, gmt_create, gmt_modified, 
+      creator, modifier, cust_no, 
+      company_name, company_zip_code, company_tel, 
+      work_addr, work_addr_detail, industry, 
+      salary, occupation, begin_year, 
+      self_duty, version, is_delete
+      )
+    values (#{id,jdbcType=BIGINT}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, 
+      #{creator,jdbcType=VARCHAR}, #{modifier,jdbcType=VARCHAR}, #{custNo,jdbcType=VARCHAR}, 
+      #{companyName,jdbcType=VARCHAR}, #{companyZipCode,jdbcType=VARCHAR}, #{companyTel,jdbcType=VARCHAR}, 
+      #{workAddr,jdbcType=VARCHAR}, #{workAddrDetail,jdbcType=VARCHAR}, #{industry,jdbcType=CHAR}, 
+      #{salary,jdbcType=DECIMAL}, #{occupation,jdbcType=CHAR}, #{beginYear,jdbcType=VARCHAR}, 
+      #{selfDuty,jdbcType=CHAR}, #{version,jdbcType=INTEGER}, #{isDelete,jdbcType=TINYINT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.sky.pojo.CustJobInfo" >
+    insert into cust_job_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="gmtCreate != null" >
+        gmt_create,
+      </if>
+      <if test="gmtModified != null" >
+        gmt_modified,
+      </if>
+      <if test="creator != null" >
+        creator,
+      </if>
+      <if test="modifier != null" >
+        modifier,
+      </if>
+      <if test="custNo != null" >
+        cust_no,
+      </if>
+      <if test="companyName != null" >
+        company_name,
+      </if>
+      <if test="companyZipCode != null" >
+        company_zip_code,
+      </if>
+      <if test="companyTel != null" >
+        company_tel,
+      </if>
+      <if test="workAddr != null" >
+        work_addr,
+      </if>
+      <if test="workAddrDetail != null" >
+        work_addr_detail,
+      </if>
+      <if test="industry != null" >
+        industry,
+      </if>
+      <if test="salary != null" >
+        salary,
+      </if>
+      <if test="occupation != null" >
+        occupation,
+      </if>
+      <if test="beginYear != null" >
+        begin_year,
+      </if>
+      <if test="selfDuty != null" >
+        self_duty,
+      </if>
+      <if test="version != null" >
+        version,
+      </if>
+      <if test="isDelete != null" >
+        is_delete,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="gmtCreate != null" >
+        #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null" >
+        #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creator != null" >
+        #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="modifier != null" >
+        #{modifier,jdbcType=VARCHAR},
+      </if>
+      <if test="custNo != null" >
+        #{custNo,jdbcType=VARCHAR},
+      </if>
+      <if test="companyName != null" >
+        #{companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="companyZipCode != null" >
+        #{companyZipCode,jdbcType=VARCHAR},
+      </if>
+      <if test="companyTel != null" >
+        #{companyTel,jdbcType=VARCHAR},
+      </if>
+      <if test="workAddr != null" >
+        #{workAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="workAddrDetail != null" >
+        #{workAddrDetail,jdbcType=VARCHAR},
+      </if>
+      <if test="industry != null" >
+        #{industry,jdbcType=CHAR},
+      </if>
+      <if test="salary != null" >
+        #{salary,jdbcType=DECIMAL},
+      </if>
+      <if test="occupation != null" >
+        #{occupation,jdbcType=CHAR},
+      </if>
+      <if test="beginYear != null" >
+        #{beginYear,jdbcType=VARCHAR},
+      </if>
+      <if test="selfDuty != null" >
+        #{selfDuty,jdbcType=CHAR},
+      </if>
+      <if test="version != null" >
+        #{version,jdbcType=INTEGER},
+      </if>
+      <if test="isDelete != null" >
+        #{isDelete,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sky.pojo.CustJobInfoExample" resultType="java.lang.Integer" >
+    select count(*) from cust_job_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update cust_job_info
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.gmtCreate != null" >
+        gmt_create = #{record.gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.gmtModified != null" >
+        gmt_modified = #{record.gmtModified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.creator != null" >
+        creator = #{record.creator,jdbcType=VARCHAR},
+      </if>
+      <if test="record.modifier != null" >
+        modifier = #{record.modifier,jdbcType=VARCHAR},
+      </if>
+      <if test="record.custNo != null" >
+        cust_no = #{record.custNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.companyName != null" >
+        company_name = #{record.companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.companyZipCode != null" >
+        company_zip_code = #{record.companyZipCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.companyTel != null" >
+        company_tel = #{record.companyTel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.workAddr != null" >
+        work_addr = #{record.workAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.workAddrDetail != null" >
+        work_addr_detail = #{record.workAddrDetail,jdbcType=VARCHAR},
+      </if>
+      <if test="record.industry != null" >
+        industry = #{record.industry,jdbcType=CHAR},
+      </if>
+      <if test="record.salary != null" >
+        salary = #{record.salary,jdbcType=DECIMAL},
+      </if>
+      <if test="record.occupation != null" >
+        occupation = #{record.occupation,jdbcType=CHAR},
+      </if>
+      <if test="record.beginYear != null" >
+        begin_year = #{record.beginYear,jdbcType=VARCHAR},
+      </if>
+      <if test="record.selfDuty != null" >
+        self_duty = #{record.selfDuty,jdbcType=CHAR},
+      </if>
+      <if test="record.version != null" >
+        version = #{record.version,jdbcType=INTEGER},
+      </if>
+      <if test="record.isDelete != null" >
+        is_delete = #{record.isDelete,jdbcType=TINYINT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update cust_job_info
+    set id = #{record.id,jdbcType=BIGINT},
+      gmt_create = #{record.gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{record.gmtModified,jdbcType=TIMESTAMP},
+      creator = #{record.creator,jdbcType=VARCHAR},
+      modifier = #{record.modifier,jdbcType=VARCHAR},
+      cust_no = #{record.custNo,jdbcType=VARCHAR},
+      company_name = #{record.companyName,jdbcType=VARCHAR},
+      company_zip_code = #{record.companyZipCode,jdbcType=VARCHAR},
+      company_tel = #{record.companyTel,jdbcType=VARCHAR},
+      work_addr = #{record.workAddr,jdbcType=VARCHAR},
+      work_addr_detail = #{record.workAddrDetail,jdbcType=VARCHAR},
+      industry = #{record.industry,jdbcType=CHAR},
+      salary = #{record.salary,jdbcType=DECIMAL},
+      occupation = #{record.occupation,jdbcType=CHAR},
+      begin_year = #{record.beginYear,jdbcType=VARCHAR},
+      self_duty = #{record.selfDuty,jdbcType=CHAR},
+      version = #{record.version,jdbcType=INTEGER},
+      is_delete = #{record.isDelete,jdbcType=TINYINT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sky.pojo.CustJobInfo" >
+    update cust_job_info
+    <set >
+      <if test="gmtCreate != null" >
+        gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null" >
+        gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creator != null" >
+        creator = #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="modifier != null" >
+        modifier = #{modifier,jdbcType=VARCHAR},
+      </if>
+      <if test="custNo != null" >
+        cust_no = #{custNo,jdbcType=VARCHAR},
+      </if>
+      <if test="companyName != null" >
+        company_name = #{companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="companyZipCode != null" >
+        company_zip_code = #{companyZipCode,jdbcType=VARCHAR},
+      </if>
+      <if test="companyTel != null" >
+        company_tel = #{companyTel,jdbcType=VARCHAR},
+      </if>
+      <if test="workAddr != null" >
+        work_addr = #{workAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="workAddrDetail != null" >
+        work_addr_detail = #{workAddrDetail,jdbcType=VARCHAR},
+      </if>
+      <if test="industry != null" >
+        industry = #{industry,jdbcType=CHAR},
+      </if>
+      <if test="salary != null" >
+        salary = #{salary,jdbcType=DECIMAL},
+      </if>
+      <if test="occupation != null" >
+        occupation = #{occupation,jdbcType=CHAR},
+      </if>
+      <if test="beginYear != null" >
+        begin_year = #{beginYear,jdbcType=VARCHAR},
+      </if>
+      <if test="selfDuty != null" >
+        self_duty = #{selfDuty,jdbcType=CHAR},
+      </if>
+      <if test="version != null" >
+        version = #{version,jdbcType=INTEGER},
+      </if>
+      <if test="isDelete != null" >
+        is_delete = #{isDelete,jdbcType=TINYINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sky.pojo.CustJobInfo" >
+    update cust_job_info
+    set gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      creator = #{creator,jdbcType=VARCHAR},
+      modifier = #{modifier,jdbcType=VARCHAR},
+      cust_no = #{custNo,jdbcType=VARCHAR},
+      company_name = #{companyName,jdbcType=VARCHAR},
+      company_zip_code = #{companyZipCode,jdbcType=VARCHAR},
+      company_tel = #{companyTel,jdbcType=VARCHAR},
+      work_addr = #{workAddr,jdbcType=VARCHAR},
+      work_addr_detail = #{workAddrDetail,jdbcType=VARCHAR},
+      industry = #{industry,jdbcType=CHAR},
+      salary = #{salary,jdbcType=DECIMAL},
+      occupation = #{occupation,jdbcType=CHAR},
+      begin_year = #{beginYear,jdbcType=VARCHAR},
+      self_duty = #{selfDuty,jdbcType=CHAR},
+      version = #{version,jdbcType=INTEGER},
+      is_delete = #{isDelete,jdbcType=TINYINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
