@@ -11,5 +11,12 @@
     <mappers>
         <mapper resource="sqlMapper/UserMapper.xml" />
         <mapper resource="sqlMapper/BlogMapper.xml" />
+
+        <!-- 客户信息管理部分 -->
+        <mapper resource="sqlMapper/CustBaseInfoMapper.xml" />
+        <mapper resource="sqlMapper/CustEnterInfoMapper.xml" />
+        <mapper resource="sqlMapper/CustJobInfoMapper.xml" />
+        <mapper resource="sqlMapper/CustPersonalInfoMapper.xml" />
+        <mapper resource="sqlMapper/CustRelationshipInfoMapper.xml" />
     </mappers>
 </configuration>

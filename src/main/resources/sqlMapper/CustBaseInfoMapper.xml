@@ -26,6 +26,31 @@
     <result column="is_delete" property="isDelete" jdbcType="TINYINT" />
     <result column="is_credited" property="isCredited" jdbcType="TINYINT" />
   </resultMap>
+
+
+  <insert id="insert" parameterType="com.sky.pojo.CustBaseInfo" >
+    insert into cust_base_info (gmt_create, gmt_modified,
+    creator, modifier, org_id,
+    depart_id, category, cust_no,
+    cert_name, cert_type, cert_no,
+    alipay_account, detail, cust_source,
+    cust_manager_id, contact, cert_confirm,
+    regist_channel, version, remark,
+    is_delete, is_credited)
+    values (now(), now(),
+    #{creator,jdbcType=VARCHAR}, #{modifier,jdbcType=VARCHAR}, #{orgId,jdbcType=BIGINT},
+    #{departId,jdbcType=BIGINT}, #{category,jdbcType=CHAR}, #{custNo,jdbcType=VARCHAR},
+    #{certName,jdbcType=VARCHAR}, #{certType,jdbcType=VARCHAR}, #{certNo,jdbcType=VARCHAR},
+    #{alipayAccount,jdbcType=VARCHAR}, #{detail,jdbcType=VARCHAR}, #{custSource,jdbcType=CHAR},
+    #{custManagerId,jdbcType=BIGINT}, #{contact,jdbcType=VARCHAR}, 0,
+    #{registChannel,jdbcType=CHAR}, #{version,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR},
+    0, 0)
+
+    <selectKey resultType="java.lang.Long" keyProperty="id">
+      SELECT LAST_INSERT_ID() as id
+    </selectKey>
+  </insert>
+
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >
@@ -119,24 +144,7 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.sky.pojo.CustBaseInfo" >
-    insert into cust_base_info (id, gmt_create, gmt_modified, 
-      creator, modifier, org_id, 
-      depart_id, category, cust_no, 
-      cert_name, cert_type, cert_no, 
-      alipay_account, detail, cust_source, 
-      cust_manager_id, contact, cert_confirm, 
-      regist_channel, version, remark, 
-      is_delete, is_credited)
-    values (#{id,jdbcType=BIGINT}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, 
-      #{creator,jdbcType=VARCHAR}, #{modifier,jdbcType=VARCHAR}, #{orgId,jdbcType=BIGINT}, 
-      #{departId,jdbcType=BIGINT}, #{category,jdbcType=CHAR}, #{custNo,jdbcType=VARCHAR}, 
-      #{certName,jdbcType=VARCHAR}, #{certType,jdbcType=VARCHAR}, #{certNo,jdbcType=VARCHAR}, 
-      #{alipayAccount,jdbcType=VARCHAR}, #{detail,jdbcType=VARCHAR}, #{custSource,jdbcType=CHAR}, 
-      #{custManagerId,jdbcType=BIGINT}, #{contact,jdbcType=VARCHAR}, #{certConfirm,jdbcType=CHAR}, 
-      #{registChannel,jdbcType=CHAR}, #{version,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR}, 
-      #{isDelete,jdbcType=TINYINT}, #{isCredited,jdbcType=TINYINT})
-  </insert>
+
   <insert id="insertSelective" parameterType="com.sky.pojo.CustBaseInfo" >
     insert into cust_base_info
     <trim prefix="(" suffix=")" suffixOverrides="," >

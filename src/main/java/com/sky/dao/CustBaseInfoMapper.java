@@ -1,9 +1,11 @@
 package com.sky.dao;
 
+import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
+
 import com.sky.pojo.CustBaseInfo;
 import com.sky.pojo.CustBaseInfoExample;
-import java.util.List;
-import org.apache.ibatis.annotations.Param;
 
 public interface CustBaseInfoMapper {
     int countByExample(CustBaseInfoExample example);
@@ -12,7 +14,7 @@ public interface CustBaseInfoMapper {
 
     int deleteByPrimaryKey(Long id);
 
-    int insert(CustBaseInfo record);
+    Long insert(CustBaseInfo record);
 
     int insertSelective(CustBaseInfo record);
 
