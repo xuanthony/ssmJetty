@@ -16,6 +16,11 @@
         <!--userId="${jdbc.username}"-->
         <!--password="${jdbc.password}">-->
         <!--</jdbcConnection>-->
+        <!--<jdbcConnection driverClass="com.mysql.jdbc.Driver"-->
+                        <!--connectionURL="jdbc:mysql://127.0.0.1:3306/blog?characterEncoding=UTF-8"-->
+                        <!--userId="root"-->
+                        <!--password="123">-->
+        <!--</jdbcConnection>-->
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
                         connectionURL="jdbc:mysql://127.0.0.1:3306/blog?characterEncoding=UTF-8"
                         userId="root"
