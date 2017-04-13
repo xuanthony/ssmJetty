@@ -26,7 +26,7 @@ public interface CustBaseInfoMapper {
 
     int updateByExample(@Param("record") CustBaseInfo record, @Param("example") CustBaseInfoExample example);
 
-    int updateByPrimaryKeySelective(CustBaseInfo record);
+    Long updateByPrimaryKeySelective(CustBaseInfo record);
 
-    int updateByPrimaryKey(CustBaseInfo record);
+    Long updateByPrimaryKey(CustBaseInfo record);
 }

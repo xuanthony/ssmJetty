@@ -2,6 +2,8 @@ package com.sky.pojo;
 
 import java.util.Date;
 
+import com.alibaba.fastjson.JSONObject;
+
 public class CustBaseInfo {
     private Long id;
 
@@ -231,5 +233,10 @@ public class CustBaseInfo {
 
     public void setIsCredited(Byte isCredited) {
         this.isCredited = isCredited;
+    }
+
+    @Override
+    public String toString() {
+        return JSONObject.toJSONString(this);
     }
 }

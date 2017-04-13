@@ -27,27 +27,27 @@
     <result column="is_credited" property="isCredited" jdbcType="TINYINT" />
   </resultMap>
 
+  <sql id="Base_Column_List" >
+    org_id, depart_id, category, cust_no,
+    cert_name, cert_type, cert_no, alipay_account, detail, cust_source, cust_manager_id,
+    contact, cert_confirm, regist_channel, version, remark, is_delete, is_credited
+  </sql>
 
   <insert id="insert" parameterType="com.sky.pojo.CustBaseInfo" >
-    insert into cust_base_info (gmt_create, gmt_modified,
-    creator, modifier, org_id,
-    depart_id, category, cust_no,
-    cert_name, cert_type, cert_no,
-    alipay_account, detail, cust_source,
-    cust_manager_id, contact, cert_confirm,
-    regist_channel, version, remark,
-    is_delete, is_credited)
+    insert into cust_base_info (gmt_create, gmt_modified,creator, modifier,
+      <include refid="Base_Column_List" />
+      )
     values (now(), now(),
-    #{creator,jdbcType=VARCHAR}, #{modifier,jdbcType=VARCHAR}, #{orgId,jdbcType=BIGINT},
-    #{departId,jdbcType=BIGINT}, #{category,jdbcType=CHAR}, #{custNo,jdbcType=VARCHAR},
-    #{certName,jdbcType=VARCHAR}, #{certType,jdbcType=VARCHAR}, #{certNo,jdbcType=VARCHAR},
-    #{alipayAccount,jdbcType=VARCHAR}, #{detail,jdbcType=VARCHAR}, #{custSource,jdbcType=CHAR},
-    #{custManagerId,jdbcType=BIGINT}, #{contact,jdbcType=VARCHAR}, 0,
-    #{registChannel,jdbcType=CHAR}, #{version,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR},
-    0, 0)
+      #{creator,jdbcType=VARCHAR}, #{modifier,jdbcType=VARCHAR}, #{orgId,jdbcType=BIGINT},
+      #{departId,jdbcType=BIGINT}, #{category,jdbcType=CHAR}, #{custNo,jdbcType=VARCHAR},
+      #{certName,jdbcType=VARCHAR}, #{certType,jdbcType=VARCHAR}, #{certNo,jdbcType=VARCHAR},
+      #{alipayAccount,jdbcType=VARCHAR}, #{detail,jdbcType=VARCHAR}, #{custSource,jdbcType=CHAR},
+      #{custManagerId,jdbcType=BIGINT}, #{contact,jdbcType=VARCHAR}, 0,
+      #{registChannel,jdbcType=CHAR}, #{version,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR},
+      0, 0)
 
-    <selectKey resultType="java.lang.Long" keyProperty="id">
-      SELECT LAST_INSERT_ID() as id
+    <selectKey keyProperty="id" resultType="java.lang.Long" order="AFTER">
+      SELECT LAST_INSERT_ID();
     </selectKey>
   </insert>
 
@@ -109,16 +109,13 @@
       </foreach>
     </where>
   </sql>
-  <sql id="Base_Column_List" >
-    id, gmt_create, gmt_modified, creator, modifier, org_id, depart_id, category, cust_no, 
-    cert_name, cert_type, cert_no, alipay_account, detail, cust_source, cust_manager_id, 
-    contact, cert_confirm, regist_channel, version, remark, is_delete, is_credited
-  </sql>
+
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.sky.pojo.CustBaseInfoExample" >
     select
     <if test="distinct" >
       distinct
     </if>
+    id, gmt_create, gmt_modified, creator, modifier,
     <include refid="Base_Column_List" />
     from cust_base_info
     <if test="_parameter != null" >
@@ -129,8 +126,7 @@
     </if>
   </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
-    select 
-    <include refid="Base_Column_List" />
+    select *
     from cust_base_info
     where id = #{id,jdbcType=BIGINT}
   </select>
@@ -299,17 +295,11 @@
   <update id="updateByExampleSelective" parameterType="map" >
     update cust_base_info
     <set >
-      <if test="record.id != null" >
-        id = #{record.id,jdbcType=BIGINT},
-      </if>
-      <if test="record.gmtCreate != null" >
-        gmt_create = #{record.gmtCreate,jdbcType=TIMESTAMP},
-      </if>
       <if test="record.gmtModified != null" >
         gmt_modified = #{record.gmtModified,jdbcType=TIMESTAMP},
       </if>
-      <if test="record.creator != null" >
-        creator = #{record.creator,jdbcType=VARCHAR},
+      <if test="record.gmtModified == null" >
+        gmt_modified = now(),
       </if>
       <if test="record.modifier != null" >
         modifier = #{record.modifier,jdbcType=VARCHAR},
@@ -375,10 +365,8 @@
   </update>
   <update id="updateByExample" parameterType="map" >
     update cust_base_info
-    set id = #{record.id,jdbcType=BIGINT},
-      gmt_create = #{record.gmtCreate,jdbcType=TIMESTAMP},
-      gmt_modified = #{record.gmtModified,jdbcType=TIMESTAMP},
-      creator = #{record.creator,jdbcType=VARCHAR},
+    set
+      gmt_modified = now(),
       modifier = #{record.modifier,jdbcType=VARCHAR},
       org_id = #{record.orgId,jdbcType=BIGINT},
       depart_id = #{record.departId,jdbcType=BIGINT},
@@ -405,11 +393,11 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.sky.pojo.CustBaseInfo" >
     update cust_base_info
     <set >
-      <if test="gmtCreate != null" >
-        gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
-      </if>
       <if test="gmtModified != null" >
-        gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+        gmt_modified = #gmtModified#,
+      </if>
+      <if test="gmtModified == null" >
+        gmt_modified = now(),
       </if>
       <if test="creator != null" >
         creator = #{creator,jdbcType=VARCHAR},
@@ -476,28 +464,26 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.sky.pojo.CustBaseInfo" >
     update cust_base_info
-    set gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
-      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
-      creator = #{creator,jdbcType=VARCHAR},
-      modifier = #{modifier,jdbcType=VARCHAR},
-      org_id = #{orgId,jdbcType=BIGINT},
-      depart_id = #{departId,jdbcType=BIGINT},
-      category = #{category,jdbcType=CHAR},
-      cust_no = #{custNo,jdbcType=VARCHAR},
-      cert_name = #{certName,jdbcType=VARCHAR},
-      cert_type = #{certType,jdbcType=VARCHAR},
-      cert_no = #{certNo,jdbcType=VARCHAR},
-      alipay_account = #{alipayAccount,jdbcType=VARCHAR},
-      detail = #{detail,jdbcType=VARCHAR},
-      cust_source = #{custSource,jdbcType=CHAR},
-      cust_manager_id = #{custManagerId,jdbcType=BIGINT},
-      contact = #{contact,jdbcType=VARCHAR},
-      cert_confirm = #{certConfirm,jdbcType=CHAR},
-      regist_channel = #{registChannel,jdbcType=CHAR},
-      version = #{version,jdbcType=INTEGER},
-      remark = #{remark,jdbcType=VARCHAR},
-      is_delete = #{isDelete,jdbcType=TINYINT},
-      is_credited = #{isCredited,jdbcType=TINYINT}
-    where id = #{id,jdbcType=BIGINT}
+    set gmt_modified = now(),
+      modifier = #{modifier},
+      org_id = #{orgId},
+      depart_id = #{departId},
+      category = #{category},
+      cust_no = #{custNo},
+      cert_name = #{certName},
+      cert_type = #{certType},
+      cert_no = #{certNo},
+      alipay_account = #{alipayAccount},
+      detail = #{detail},
+      cust_source = #{custSource},
+      cust_manager_id = #{custManagerId},
+      contact = #{contact},
+      cert_confirm = #{certConfirm},
+      regist_channel = #{registChannel},
+      version = #{version},
+      remark = #{remark},
+      is_delete = #{isDelete},
+      is_credited = #{isCredited}
+    where id = #{id}
   </update>
 </mapper>
