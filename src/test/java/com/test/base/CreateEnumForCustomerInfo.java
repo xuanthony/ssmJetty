@@ -35,7 +35,8 @@ public class CreateEnumForCustomerInfo {
         System.out.println(annotations);
         try {
             //按行读取文件
-            List<String> contentLines = Files.lines(Paths.get(fileName)).collect(java.util.stream.Collectors.toList());
+            List<String> contentLines = null;
+            // Files.lines(Paths.get(fileName)).collect(java.util.stream.Collectors.toList());
             System.out.println("所有行数：" + contentLines.size());
             List<String> contentLinesNoEmptyLine = Lists.newArrayList();
             //去掉空行

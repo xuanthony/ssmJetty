@@ -4,12 +4,34 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.sky.util.Paginator;
+
 public class CustBaseInfoExample {
     protected String orderByClause;
 
     protected boolean distinct;
 
     protected List<Criteria> oredCriteria;
+
+    private Paginator paginator;
+
+    /**
+     * Getter method for property paginator.
+     *
+     * @return property value of paginator
+     */
+    public Paginator getPaginator() {
+        return paginator;
+    }
+
+    /**
+     * Setter method for property paginator.
+     *
+     * @param paginator value to be assigned to property paginator
+     */
+    public void setPaginator(Paginator paginator) {
+        this.paginator = paginator;
+    }
 
     public CustBaseInfoExample() {
         oredCriteria = new ArrayList<Criteria>();

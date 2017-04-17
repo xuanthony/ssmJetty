@@ -8,17 +8,26 @@ import com.sky.pojo.CustBaseInfo;
 import com.sky.pojo.CustBaseInfoExample;
 
 public interface CustBaseInfoMapper {
-    int countByExample(CustBaseInfoExample example);
+
+    Long insert(CustBaseInfo record);
+
+    List<CustBaseInfo> selectByExample(CustBaseInfoExample example);
+
+    List<CustBaseInfo> selectPaginateCustBaseInfo(CustBaseInfoExample example);
+
+    Integer countByExample(CustBaseInfoExample example);
+
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    // 暂时只用到以上方法
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     int deleteByExample(CustBaseInfoExample example);
 
     int deleteByPrimaryKey(Long id);
 
-    Long insert(CustBaseInfo record);
 
     int insertSelective(CustBaseInfo record);
 
-    List<CustBaseInfo> selectByExample(CustBaseInfoExample example);
 
     CustBaseInfo selectByPrimaryKey(Long id);
 

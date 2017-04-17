@@ -1,16 +1,22 @@
 package com.sky.controller;
 
-import com.sky.pojo.User;
-import com.sky.service.UserService;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.servlet.http.HttpServletRequest;
-import java.util.List;
+import com.sky.common.ResponseResult;
+import com.sky.pojo.CustBaseInfo;
+import com.sky.pojo.CustBaseInfoExample;
+import com.sky.service.UserService;
+import com.sky.util.Paginator;
 
 /**
  * @（#）:UserController
@@ -19,28 +25,44 @@ import java.util.List;
  * @version: Version 1.0
  */
 @Controller
-@RequestMapping("/users")
+@RequestMapping("/user")
 public class UserController {
 
-    //添加一个日志器
     private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 
     @Autowired
     private UserService userService;
 
     @RequestMapping(value = "/userList")
-    public ModelAndView userList(final HttpServletRequest request)throws Exception{
-        String page = request.getParameter("page");
-        String limit = request.getParameter("limit");
-        ModelAndView modelAndView = new ModelAndView();
+    @ResponseBody
+    public ResponseResult userList(final HttpServletRequest request) throws Exception{
+        ResponseResult result = new ResponseResult();
 
-        //调用service方法得到用户列表
-        List<User> users = userService.getUser();
-        //将得到的用户列表内容添加到ModelAndView中
-        modelAndView.addObject("users",users);
-        //设置响应的jsp视图
-        modelAndView.setViewName("getUser");
+        CustBaseInfoExample example = new CustBaseInfoExample();
+        String offIndex = request.getParameter("_offIndex");
+        String pageSize = request.getParameter("_pageSize");
+        if (StringUtils.isNotEmpty(pageSize) && StringUtils.isNotEmpty(offIndex)) {
+            Paginator paginator = new Paginator(Integer.valueOf(offIndex), Integer.valueOf(pageSize));
+            example.setPaginator(paginator);
+        }
 
-        return modelAndView;
+        List<CustBaseInfo> users = userService.selectPaginateCustBaseInfo(example);
+        Integer total = userService.countByExample(example);
+        result.putData("data", users);
+        result.putData("total", total);
+        return result;
     }
+
+    //@RequestMapping(value = "/getUser")
+    //public ModelAndView getUser(final HttpServletRequest request)throws Exception{
+    //    ModelAndView modelAndView = new ModelAndView();
+    //    //调用service方法得到用户列表
+    //    List<User> users = userService.getUser();
+    //    //将得到的用户列表内容添加到ModelAndView中
+    //    modelAndView.addObject("users",users);
+    //    //设置响应的jsp视图
+    //    modelAndView.setViewName("getUser");
+    //
+    //    return modelAndView;
+    //}
 }

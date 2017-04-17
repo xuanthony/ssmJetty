@@ -32,25 +32,6 @@
     cert_name, cert_type, cert_no, alipay_account, detail, cust_source, cust_manager_id,
     contact, cert_confirm, regist_channel, version, remark, is_delete, is_credited
   </sql>
-
-  <insert id="insert" parameterType="com.sky.pojo.CustBaseInfo" >
-    insert into cust_base_info (gmt_create, gmt_modified,creator, modifier,
-      <include refid="Base_Column_List" />
-      )
-    values (now(), now(),
-      #{creator,jdbcType=VARCHAR}, #{modifier,jdbcType=VARCHAR}, #{orgId,jdbcType=BIGINT},
-      #{departId,jdbcType=BIGINT}, #{category,jdbcType=CHAR}, #{custNo,jdbcType=VARCHAR},
-      #{certName,jdbcType=VARCHAR}, #{certType,jdbcType=VARCHAR}, #{certNo,jdbcType=VARCHAR},
-      #{alipayAccount,jdbcType=VARCHAR}, #{detail,jdbcType=VARCHAR}, #{custSource,jdbcType=CHAR},
-      #{custManagerId,jdbcType=BIGINT}, #{contact,jdbcType=VARCHAR}, 0,
-      #{registChannel,jdbcType=CHAR}, #{version,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR},
-      0, 0)
-
-    <selectKey keyProperty="id" resultType="java.lang.Long" order="AFTER">
-      SELECT LAST_INSERT_ID();
-    </selectKey>
-  </insert>
-
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >
@@ -80,6 +61,47 @@
       </foreach>
     </where>
   </sql>
+
+  <insert id="insert" parameterType="com.sky.pojo.CustBaseInfo" >
+    insert into cust_base_info (gmt_create, gmt_modified,creator, modifier,
+      <include refid="Base_Column_List" />
+      )
+    values (now(), now(),
+      #{creator,jdbcType=VARCHAR}, #{modifier,jdbcType=VARCHAR}, #{orgId,jdbcType=BIGINT},
+      #{departId,jdbcType=BIGINT}, #{category,jdbcType=CHAR}, #{custNo,jdbcType=VARCHAR},
+      #{certName,jdbcType=VARCHAR}, #{certType,jdbcType=VARCHAR}, #{certNo,jdbcType=VARCHAR},
+      #{alipayAccount,jdbcType=VARCHAR}, #{detail,jdbcType=VARCHAR}, #{custSource,jdbcType=CHAR},
+      #{custManagerId,jdbcType=BIGINT}, #{contact,jdbcType=VARCHAR}, 0,
+      #{registChannel,jdbcType=CHAR}, #{version,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR},
+      0, 0)
+
+    <selectKey keyProperty="id" resultType="java.lang.Long" order="AFTER">
+      SELECT LAST_INSERT_ID();
+    </selectKey>
+  </insert>
+
+  <select id="selectPaginateCustBaseInfo" resultMap="BaseResultMap" parameterType="com.sky.pojo.CustBaseInfoExample" >
+    select * from cust_base_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    order by id desc
+    limit #{paginator.offIndex}, #{paginator.pageSize}
+  </select>
+
+  <select id="countByExample" parameterType="com.sky.pojo.CustBaseInfoExample" resultType="java.lang.Integer" >
+    select count(*) from cust_base_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+
+
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <!-- 目前只用到以上的sql -->
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+
   <sql id="Update_By_Example_Where_Clause" >
     <where >
       <foreach collection="example.oredCriteria" item="criteria" separator="or" >
@@ -286,12 +308,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.sky.pojo.CustBaseInfoExample" resultType="java.lang.Integer" >
-    select count(*) from cust_base_info
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-  </select>
+
   <update id="updateByExampleSelective" parameterType="map" >
     update cust_base_info
     <set >

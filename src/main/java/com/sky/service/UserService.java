@@ -1,8 +1,10 @@
 package com.sky.service;
 
-import com.sky.pojo.User;
-
 import java.util.List;
+
+import com.sky.pojo.CustBaseInfo;
+import com.sky.pojo.CustBaseInfoExample;
+import com.sky.pojo.User;
 
 /**
  * @（#）:UserService
@@ -13,4 +15,8 @@ import java.util.List;
 public interface UserService {
 
     List<User> getUser();
+
+    List<CustBaseInfo> selectPaginateCustBaseInfo(CustBaseInfoExample example);
+
+    Integer countByExample(CustBaseInfoExample example);
 }

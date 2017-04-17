@@ -30,18 +30,6 @@
         <url-pattern>/*</url-pattern>
     </filter-mapping>
 
-    <!-- urlrewrite-->
-    <!--<filter>-->
-        <!--<filter-name>UrlRewriteFilter</filter-name>-->
-        <!--<filter-class>org.tuckey.web.filters.urlrewrite.UrlRewriteFilter</filter-class>-->
-    <!--</filter>-->
-    <!--<filter-mapping>-->
-        <!--<filter-name>UrlRewriteFilter</filter-name>-->
-        <!--<url-pattern>/*</url-pattern>-->
-        <!--<dispatcher>REQUEST</dispatcher>-->
-        <!--<dispatcher>FORWARD</dispatcher>-->
-    <!--</filter-mapping>-->
-
     <!-- 日志记录 -->
     <context-param>
         <!-- 日志配置文件路径 -->
@@ -79,21 +67,4 @@
         <servlet-name>springMVC</servlet-name>
         <url-pattern>/</url-pattern>
     </servlet-mapping>
-
-    <error-page>
-        <error-code>404</error-code>
-        <location>/error/404</location>
-    </error-page>
-
-    <error-page>
-        <error-code>500</error-code>
-        <location>/error/500</location>
-    </error-page>
-
-    <welcome-file-list>
-        <welcome-file>/index</welcome-file>
-        <welcome-file>/index.jsp</welcome-file>
-        <welcome-file>/index.htm</welcome-file>
-        <welcome-file>/index.html</welcome-file>
-    </welcome-file-list>
 </web-app>

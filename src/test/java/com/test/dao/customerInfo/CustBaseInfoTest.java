@@ -11,6 +11,7 @@ import com.google.common.base.Preconditions;
 import com.sky.dao.CustBaseInfoMapper;
 import com.sky.pojo.CustBaseInfo;
 import com.sky.pojo.CustBaseInfoExample;
+import com.sky.util.Paginator;
 import com.test.base.BaseJunitTest;
 
 /**
@@ -22,7 +23,7 @@ public class CustBaseInfoTest extends BaseJunitTest {
     @Autowired
     private CustBaseInfoMapper custBaseInfoMapper;
 
-    @Test
+    //@Test
     public void insertCustBaseInfo() {
         Preconditions.checkNotNull(custBaseInfoMapper, "custBaseInfoMapper注入失败，请确认.");
 
@@ -57,6 +58,23 @@ public class CustBaseInfoTest extends BaseJunitTest {
         List<CustBaseInfo> lists = custBaseInfoMapper.selectByExample(custBaseInfoExample);
 
         System.out.println(JSONObject.toJSONString(lists));
+        Assert.assertNotNull(lists);
+    }
+
+    @Test
+    public void selectPaginateListByExample() {
+        CustBaseInfoExample custBaseInfoExample = new CustBaseInfoExample();
+        custBaseInfoExample.createCriteria().andCategoryEqualTo("0");
+        int offIndex = 0;
+        int pageSize = 5;
+        Paginator paginator = new Paginator(offIndex, pageSize);
+        custBaseInfoExample.setPaginator(paginator);
+        List<CustBaseInfo> lists = custBaseInfoMapper.selectPaginateCustBaseInfo(custBaseInfoExample);
+        int size = custBaseInfoMapper.countByExample(custBaseInfoExample);
+
+        System.out.println(size);
+        System.out.println(JSONObject.toJSONString(lists));
+
         Assert.assertNotNull(lists);
     }
 }
